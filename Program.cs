@@ -49,4 +49,17 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+// Check AzureAd config values are not empty at startup
+var azureAdSection = builder.Configuration.GetSection("AzureAd");
+string[] keys = { "Authority", "ClientId", "ClientSecret", "CallbackPath", "SignedOutCallbackPath" };
+foreach (var key in keys)
+{
+    var value = azureAdSection[key];
+    if (string.IsNullOrWhiteSpace(value))
+    {
+        throw new Exception($"Startup failed: AzureAd configuration value '{key}' is missing or empty.");
+    }
+}
+
 app.Run();
+
