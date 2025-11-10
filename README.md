@@ -67,7 +67,3 @@ The application will start and provide a local URL (e.g., https://localhost:5001
   ```
   dotnet test
   ```
-
-## License
-
-Specify your license here.
